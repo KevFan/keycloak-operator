@@ -66,3 +66,14 @@ func TestUtil_Test_GetServiceEnvVar(t *testing.T) {
 	assert.Equal(t, GetServiceEnvVar("SERVICE_HOST"), "KEYCLOAK_POSTGRESQL_SERVICE_HOST")
 	assert.Equal(t, GetServiceEnvVar("SERVICE_PORT"), "KEYCLOAK_POSTGRESQL_SERVICE_PORT")
 }
+
+func TestUtil_Test_SanitizeResourceName(t *testing.T) {
+	// given
+	name := "Test_01#"
+
+	// when
+	sanitizedResourceName := SanitizeResourceName(name)
+
+	// then
+	assert.Equal(t, sanitizedResourceName, "test-01")
+}

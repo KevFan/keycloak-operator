@@ -55,16 +55,10 @@ func SanitizeNumberOfReplicas(numberOfReplicas int, isCreate bool) *int32 {
 
 func SanitizeResourceName(name string) string {
 	sb := strings.Builder{}
-	for _, char := range name {
+	for _, char := range strings.ToLower(name) {
 		ascii := int(char)
 		// number
 		if ascii >= 48 && ascii <= 57 {
-			sb.WriteRune(char)
-			continue
-		}
-
-		// Uppercase letters
-		if ascii >= 65 && ascii <= 90 {
 			sb.WriteRune(char)
 			continue
 		}

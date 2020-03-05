@@ -24,6 +24,7 @@ import (
 	keycloakv1alpha1 "github.com/keycloak/keycloak-operator/pkg/apis/keycloak/v1alpha1"
 	"github.com/keycloak/keycloak-operator/pkg/common"
 
+	"github.com/keycloak/keycloak-operator/version"
 	"k8s.io/api/extensions/v1beta1"
 	"k8s.io/apimachinery/pkg/api/errors"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -249,6 +250,7 @@ func (r *ReconcileKeycloak) ManageSuccess(instance *v1alpha1.Keycloak, currentSt
 		instance.Status.CredentialSecret = currentState.KeycloakAdminSecret.Name
 	}
 
+	instance.Status.Version = version.Version
 	err = r.client.Status().Update(r.context, instance)
 	if err != nil {
 		log.Error(err, "unable to update status")
